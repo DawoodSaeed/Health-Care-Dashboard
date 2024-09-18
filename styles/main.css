@@ -362,6 +362,10 @@ html {
     font: inherit;
     font-size: 13px;
     cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .stats {
