@@ -105,11 +105,11 @@ html {
 }
 
 .main-section {
-  height: calc(100% - 18px -72px -32px);
+  height: calc(100% - 18px + 72px + 32px);
   padding-top: 32px;
   display: grid;
   grid-template-columns: minmax(376, 1fr) 1fr minmax(376, 1fr);
-  grid-template-rows: 800px 1fr;
+  grid-template-rows: 830px 1fr;
   gap: 32px;
 
   /*  */
@@ -663,5 +663,11 @@ html {
         grid-template-columns: 1fr 1fr;
       }
     }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .dignosticHistory .chartRender {
+    width: 310px;
   }
 }
