@@ -557,6 +557,11 @@ html {
 }
 
 @media screen and (max-width: 430px) {
+  .dignosticTable {
+    thead {
+      background: none;
+    }
+  }
   .mobo-nav.active {
     display: block;
   }
