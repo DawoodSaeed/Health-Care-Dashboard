@@ -487,6 +487,14 @@ html {
 }
 
 @media screen and (max-width: 1220px) {
+  .healthBoxes {
+    gap: 10px;
+
+    .box {
+      height: 100%;
+      max-height: 500px;
+    }
+  }
   .main-section {
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 500px 1fr 500px;
@@ -542,7 +550,7 @@ html {
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
   .mobo-nav.active {
     display: block;
   }
