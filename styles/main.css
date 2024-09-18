@@ -673,7 +673,7 @@ html {
 }
 
 @media screen and (max-width: 380px) {
-  .dignosticHistory .chartRender {
+  .main-section .dignosticHistory .chartRender {
     width: 310px;
   }
 }
