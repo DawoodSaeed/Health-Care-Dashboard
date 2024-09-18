@@ -356,10 +356,12 @@ html {
   .titleBar select {
     border: none;
     background: none;
-    border: 1px solid #ccc;
     margin-right: 28px;
     padding: 5px;
     border-radius: 8px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
   }
 
   .stats {
