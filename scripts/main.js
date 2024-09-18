@@ -112,6 +112,8 @@ const renderPatientInfo = function (patients, patientName) {
               <p>${patientToRender["name"]}</p>
             </div>
 
+
+            <div class="d-data">
             <div class="pateint-iconInfo">
               <div class="Icon">
                 <img src="./images/birthIcons/BirthIcon.png" alt="" />
@@ -162,6 +164,7 @@ const renderPatientInfo = function (patients, patientName) {
                 <p>${patientToRender["insurance_type"]}</p>
               </div>
             </div>
+            </div>
             <div class='patient-infoBtn'>
             <button>Show All Information</button>
           </div>
@@ -171,7 +174,7 @@ const renderPatientInfo = function (patients, patientName) {
           
         `;
 
-  document.querySelector(".main-leftBar .patientInfo").innerHTML = htmlToDOM;
+  document.querySelector(" .patientInfo").innerHTML = htmlToDOM;
 };
 
 const renderDiagnosticList = function (patients, patientName) {
@@ -238,6 +241,24 @@ const setCrosspondingDiagnosistics = function (diagnostics) {
         ? healthBoxesData[index]["value"] + " bpm"
         : healthBoxesData[index]["value"] + " F";
   });
+
+  const labResult = document.querySelector(".labResults .results");
+
+  const reports = diagnostics[0]["lab_results"];
+  console.log("tango", reports);
+  let reportHtml = "";
+  reports.forEach((itm) => {
+    const report = `<div class="result">
+              <p>${itm}</p>
+              <img
+                src="./images/download_FILL0_wght300_GRAD0_opsz24 (1)/download_FILL0_wght300_GRAD0_opsz24 (1).png"
+                alt="Download Icon"
+              />
+            </div>`;
+    reportHtml += report;
+  });
+
+  labResult.innerHTML = reportHtml;
 };
 
 let myChart = null; // Global variable to hold the chart instance
@@ -260,7 +281,7 @@ const renderChart = function (labels, systolic, diastolic) {
         labels: labels, // X-axis labels
         datasets: [
           {
-            label: "Systolic Data Set", // Name of the first line
+            label: "systolic", // Name of the first line
             data: systolic, // Data points for the first line
             borderColor: "#C26EB4", // Color of the first line
             backgroundColor: "rgba(194, 110, 180, 0.2)", // Background color under the line
@@ -268,7 +289,7 @@ const renderChart = function (labels, systolic, diastolic) {
             tension: 0.3, // Curve the line slightly
           },
           {
-            label: "Diastolic Data Set", // Name of the second line
+            label: "diastolic", // Name of the second line
             data: diastolic, // Data points for the second line
             borderColor: "#7E6CAB", // Color of the second line
             backgroundColor: "rgba(126, 108, 171, 0.2)", // Background color under the line
@@ -293,8 +314,8 @@ const renderChart = function (labels, systolic, diastolic) {
           tooltip: {
             callbacks: {
               label: function (tooltipItem) {
-                recentLabel = labels[tooltipItem.dataIndex];
-                console.log(recentLabel);
+                recentLabel = `${tooltipItem.dataset.label}: ${tooltipItem.raw}`;
+                console.log(`${tooltipItem.dataset.label}: ${tooltipItem.raw}`);
                 return `${tooltipItem.dataset.label}: ${tooltipItem.raw}`;
               },
             },
@@ -302,12 +323,11 @@ const renderChart = function (labels, systolic, diastolic) {
         },
 
         onClick: (e) => {
-          const [month, year] = recentLabel.split(" ");
-
+          console.log(DIAGNOSTIC_HISTORY);
+          const [field, value] = recentLabel.split(":");
+          console.log(field, value);
           const arr = DIAGNOSTIC_HISTORY.filter(
-            (itm) =>
-              itm["year"] == parseInt(year) &&
-              itm["month"] == getFullMonthName(month)
+            (itm) => itm[`${field}`]["value"] == parseInt(value)
           );
 
           setCrosspondingDiagnosistics(arr);
@@ -319,11 +339,11 @@ const renderChart = function (labels, systolic, diastolic) {
 const renderChartData = function (patients, patientName) {
   const patientToRender = getPatient(patients, patientName);
 
+  console.log(patientToRender);
   if (!patientToRender) {
     alert("Patient not found");
     return;
   }
-
   const diagnosisHistory = patientToRender["diagnosis_history"];
   console.log(diagnosisHistory);
 
@@ -332,6 +352,7 @@ const renderChartData = function (patients, patientName) {
   const diastolic = [];
 
   diagnosisHistory.forEach((diagnosis) => {
+    // console.log(diagnosis);
     const obj = {
       systolic: diagnosis["blood_pressure"]["systolic"],
       diastolic: diagnosis["blood_pressure"]["diastolic"],
@@ -340,12 +361,13 @@ const renderChartData = function (patients, patientName) {
       temperature: diagnosis["temperature"],
       heart_rate: diagnosis["heart_rate"],
       respiratory_rate: diagnosis["respiratory_rate"],
+      lab_results: patientToRender["lab_results"],
     };
     DIAGNOSTIC_HISTORY.push(obj);
   });
 
   const array = filterDataByTimeframe(DIAGNOSTIC_HISTORY, "1 year");
-
+  console.log("I am tango");
   console.log(array);
   array.forEach((diagnosis) => {
     labels.push(
@@ -493,4 +515,9 @@ function getFullMonthName(monthAbbreviation) {
     default:
       return "Invalid month";
   }
+}
+
+function mobonav() {
+  const moboNav = document.querySelector(".mobo-nav");
+  moboNav.classList.toggle("active");
 }

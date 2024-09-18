@@ -108,8 +108,8 @@ html {
   height: calc(100% - 18px -72px -32px);
   padding-top: 32px;
   display: grid;
-  grid-template-columns: 376px minmax(500px, 1fr) 376px;
-  /* grid-template-rows: 1fr 1fr; */
+  grid-template-columns: minmax(376, 1fr) 1fr minmax(376, 1fr);
+  grid-template-rows: 800px 1fr;
   gap: 32px;
 
   /*  */
@@ -121,29 +121,32 @@ html {
     background: #ffffff 0% 0% no-repeat padding-box;
     border-radius: 16px;
     padding: 20px;
-    height: max-content;
+    height: calc(100vh - 138px);
+    overflow: hidden;
   }
 
-  & > .main {
+  /* & > .main {
     grid-template-columns: span 1;
-  }
+  } */
 
   & > .main-leftBar {
     grid-template-columns: span 1;
+  }
 
-    .patientInfo,
-    .labResults {
-      background: #ffffff 0% 0% no-repeat padding-box;
-      border-radius: 16px;
-      padding: 20px;
+  .patientInfo,
+  .labResults {
+    grid-column: 3/4;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 16px;
+    padding: 20px;
+  }
 
-      height: max-content;
-    }
+  .labResults {
+    height: max-content;
   }
 }
 
-.main-leftBar .labResults {
-  margin-top: 32px;
+.labResults {
   padding: 20px;
   text-align: left;
   font: normal normal 800 24px Manrope;
@@ -151,7 +154,7 @@ html {
   color: #072635;
 }
 
-.main-leftBar .labResults .result {
+.labResults .result {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -178,7 +181,7 @@ html {
 }
 
 .main-rightBar .cards {
-  max-height: 500px;
+  height: 98%;
   overflow-y: scroll;
   scroll-behavior: smooth;
   scrollbar-color: #000;
@@ -219,44 +222,44 @@ html {
   cursor: pointer;
   background: #d8fcf7 0% 0% no-repeat padding-box;
 }
-.main-leftBar .patient-image img {
+.patient-image img {
   width: 150px;
   height: 150px;
 }
-.main-leftBar .patient-image,
-.main-leftBar .patient-name {
+.patient-image,
+.patient-name {
   text-align: center;
 }
 
-.main-leftBar .patient-name {
+.patient-name {
   font: normal normal 800 24px/33px Manrope;
   letter-spacing: 0px;
   color: #072635;
   margin-top: 24px;
 }
 
-.main-leftBar .pateint-iconInfo {
+.pateint-iconInfo {
   margin-top: 24px;
   display: flex;
   align-items: flex-start;
   gap: 16px;
 }
 
-.main-leftBar .pateint-iconInfo p:first-of-type {
+.pateint-iconInfo p:first-of-type {
   font: normal normal medium 14px/19px Manrope;
   letter-spacing: 0px;
   color: #072635;
   text-transform: capitalize;
 }
 
-.main-leftBar .pateint-iconInfo p:last-of-type {
+.pateint-iconInfo p:last-of-type {
   font: normal normal bold 14px/19px Manrope;
   letter-spacing: 0px;
   color: #072635;
   text-transform: capitalize;
 }
 
-.main-leftBar .patient-infoBtn {
+.patient-infoBtn {
   margin-top: 24px;
   display: flex;
   justify-content: center;
@@ -271,8 +274,9 @@ html {
   }
 }
 
-.main .dignosticTable {
-  margin-top: 32px;
+.dignosticTable {
+  grid-column: 2/3;
+  grid-row: 2/3;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 16px;
   padding: 23px;
@@ -309,11 +313,12 @@ html {
   }
 }
 
-.main .dignosticHistory {
+.dignosticHistory {
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 16px;
   padding: 23px;
-
+  grid-column: 2/3;
+  grid-row: 1/2;
   h3 {
     font: normal normal 800 24px/33px Manrope;
     letter-spacing: 0px;
@@ -417,7 +422,8 @@ html {
   gap: 37px;
   .box {
     padding: 16px;
-    height: 242px;
+    min-height: 242px;
+    max-height: max-content;
     /* UI Properties */
     background: #e0f3fa 0% 0% no-repeat padding-box;
     border-radius: 12px;
@@ -452,5 +458,202 @@ html {
 
   .box:nth-child(3) {
     background: #ffe6f1 0% 0% no-repeat padding-box;
+  }
+}
+
+.mobo-nav {
+  display: none;
+}
+
+@media screen and (max-width: 1280px) {
+  .navbar {
+    grid-template-columns: 100px 1fr 100px;
+  }
+  .navbar .nav-left img {
+    width: 100%;
+  }
+  .navbar > .nav-items {
+    gap: 20px;
+
+    span {
+      /* display: none; */
+      font-size: 12px;
+    }
+  }
+
+  .doctor-name {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  .main-section {
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 500px 1fr 500px;
+  }
+
+  .main-section .patientInfo {
+    grid-column: 2/3;
+    grid-row: 1/2;
+
+    .d-data {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  .main-section .main-rightBar {
+    grid-row: 1/3;
+    height: 100%;
+  }
+
+  .main-section .labResults {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
+
+  .main-section .dignosticHistory {
+    grid-row: 2 / 3;
+    display: grid;
+    grid-template-rows: 30px 2fr 1fr;
+
+    .chartRender {
+      grid-template-columns: 1fr;
+
+      .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 30px;
+        .box {
+          margin-top: 0px !important;
+          border: 0px;
+        }
+
+        .box:not(:first-of-type) {
+          border-left: 1px solid #d3d6d5;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .main-section .dignosticTable {
+    grid-row: 3/4;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .mobo-nav.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0%;
+    }
+
+    100% {
+      opacity: 100%;
+    }
+  }
+  .mobo-nav {
+    animation: fadeIn 0.4s ease-in;
+    display: none;
+    position: absolute;
+    top: 74px;
+    z-index: 100;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: #d3d6d5;
+    border-radius: 8px;
+    right: 10px;
+    li {
+      padding: 10px;
+
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 20px;
+
+      &.active {
+        background: #01f0d0 0% 0% no-repeat padding-box;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+  html {
+    background-color: #000;
+  }
+
+  .navbar {
+    position: relative;
+    grid-template-columns: 1fr 1fr;
+
+    .nav-right {
+      text-align: right;
+      display: flex;
+      justify-content: end;
+    }
+  }
+  .navbar > .nav-items {
+    display: none;
+  }
+
+  .main-section {
+    grid-template-columns: 100%;
+
+    .dignosticHistory .chartRender {
+      width: 340px;
+    }
+
+    .healthBoxes {
+      grid-template-columns: 1fr;
+    }
+    .chart {
+      width: 300px !important;
+    }
+    .patientInfo {
+      grid-row: 1/2;
+      grid-column: 1/2;
+    }
+
+    .dignosticHistory {
+      grid-template-rows: 30px 450px 1fr;
+      grid-row: 2/3;
+      grid-column: 1/2;
+    }
+
+    .dignosticTable {
+      grid-row: 3/4;
+      grid-column: 1/2;
+    }
+
+    .labResults {
+      grid-row: 4/5;
+      grid-column: 1/2;
+    }
+
+    .main-rightBar {
+      grid-row: 5/6;
+      grid-column: 1/2;
+    }
+
+    .patient-image img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .patientInfo {
+      .d-data {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   }
 }

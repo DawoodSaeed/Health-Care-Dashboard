@@ -67,16 +67,52 @@
             />
           </div>
 
-          <div>
+          <div onclick="mobonav();">
             <img
               src="./images/vertical-icons/more_vert_FILL0_wght300_GRAD0_opsz24.png"
               alt="Vertical Icon"
             />
           </div>
         </div>
+
+        <div class="mobo-nav">
+          <ul class="nav-items">
+            <li>
+              <a href="#">
+                <img src="./images/home.svg" alt="Home Icon" />
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="#">
+                <img src="./images/patient.svg" alt="Patient Icon" />
+                <span>Patients</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="./images/schedule.svg" alt="Schedule Icon" />
+                <span>Schedule</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="./images/messages.svg" alt="Messages Icon" />
+                <span>Messages</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="./images/transactions.svg" alt="Messages Icon" />
+                <span>Transactions</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <section class="main-section">
+        <!-- This is a sepearte component. -->
         <aside class="main-rightBar">
           <div class="header">
             <h2>Patients</h2>
@@ -90,141 +126,131 @@
           <div class="cards" id="asideCardsPatient"></div>
         </aside>
 
-        <main class="main">
-          <div class="dignosticHistory">
-            <h3>Diagnostic History</h3>
+        <div class="dignosticHistory">
+          <h3>Diagnostic History</h3>
 
-            <div class="chartRender">
-              <div class="chart">
-                <div class="titleBar">
-                  <p class="title">Blood Pressure</p>
-                  <select id="filterChart">
-                    <option value="last1year">Last 1 year</option>
-                    <option value="last8months">Last 8 months</option>
-                    <option value="last2year">Last 2 year</option>
-                    <option value="last3year">Last 3 year</option>
-                  </select>
-                </div>
-                <canvas id="myChart" width="400" height="200"></canvas>
+          <div class="chartRender">
+            <div class="chart">
+              <div class="titleBar">
+                <p class="title">Blood Pressure</p>
+                <select id="filterChart">
+                  <option value="last1year">Last 1 year</option>
+                  <option value="last8months">Last 8 months</option>
+                  <option value="last2year">Last 2 year</option>
+                  <option value="last3year">Last 3 year</option>
+                </select>
               </div>
-
-              <div class="stats">
-                <div class="box">
-                  <p class="label">Systolic</p>
-
-                  <p class="number">160</p>
-
-                  <p class="text">
-                    <img
-                      src="./images/ArrowUp/ArrowUp.png"
-                      alt="Arrow Up Icon"
-                    />
-                    <span> Higher than Average </span>
-                  </p>
-                </div>
-
-                <div class="box">
-                  <p class="label dis">Diastolic</p>
-
-                  <p class="number">160</p>
-
-                  <p class="text">
-                    <img
-                      src="./images/ArrowUp/ArrowUp.png"
-                      alt="Arrow Up Icon"
-                    />
-                    <span> Higher than Average </span>
-                  </p>
-                </div>
-              </div>
+              <canvas id="myChart" width="400" height="200"></canvas>
             </div>
 
-            <div class="healthBoxes">
+            <div class="stats">
               <div class="box">
-                <img
-                  src="./images/respiratory rate.png"
-                  alt="respiratory image"
-                />
-                <p class="label">Respiratory Rate</p>
+                <p class="label">Systolic</p>
 
-                <p class="number">20 bpm</p>
+                <p class="number">160</p>
 
-                <p class="text">Normal</p>
+                <p class="text">
+                  <img src="./images/ArrowUp/ArrowUp.png" alt="Arrow Up Icon" />
+                  <span> Higher than Average </span>
+                </p>
               </div>
 
               <div class="box">
-                <img
-                  src="./images/temperature/temperature.png"
-                  alt="respiratory image"
-                />
-                <p class="label">Temperature</p>
+                <p class="label dis">Diastolic</p>
 
-                <p class="number">20 bpm</p>
+                <p class="number">160</p>
 
-                <p class="text">Normal</p>
-              </div>
-
-              <div class="box">
-                <img
-                  src="./images/HeartBPM/HeartBPM.png"
-                  alt="respiratory image"
-                />
-                <p class="label">Heart Rate</p>
-
-                <p class="number">20 bpm</p>
-
-                <p class="text">Normal</p>
+                <p class="text">
+                  <img src="./images/ArrowUp/ArrowUp.png" alt="Arrow Up Icon" />
+                  <span> Higher than Average </span>
+                </p>
               </div>
             </div>
           </div>
-          <div class="dignosticTable">
-            <h3>Diagnostic List</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Problem/Diagnosis</th>
-                  <th>Description</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
 
-              <tbody id="diagnosticListRows"></tbody>
-            </table>
-          </div>
-        </main>
+          <div class="healthBoxes">
+            <div class="box">
+              <img
+                src="./images/respiratory rate.png"
+                alt="respiratory image"
+              />
+              <p class="label">Respiratory Rate</p>
 
-        <aside class="main-leftBar">
-          <div class="patientInfo"></div>
+              <p class="number">20 bpm</p>
 
-          <div class="labResults">
-            <h3>Lab Results</h3>
+              <p class="text">Normal</p>
+            </div>
 
-            <div class="results">
-              <div class="result">
-                <p>Blood Tests</p>
-                <img
-                  src="./images/download_FILL0_wght300_GRAD0_opsz24 (1)/download_FILL0_wght300_GRAD0_opsz24 (1).png"
-                  alt="Download Icon"
-                />
-              </div>
+            <div class="box">
+              <img
+                src="./images/temperature/temperature.png"
+                alt="respiratory image"
+              />
+              <p class="label">Temperature</p>
 
-              <div class="result">
-                <p>Blood Tests</p>
-                <img
-                  src="./images/download_FILL0_wght300_GRAD0_opsz24 (1)/download_FILL0_wght300_GRAD0_opsz24 (1).png"
-                  alt="Download Icon"
-                />
-              </div>
-              <div class="result">
-                <p>Blood Tests</p>
-                <img
-                  src="./images/download_FILL0_wght300_GRAD0_opsz24 (1)/download_FILL0_wght300_GRAD0_opsz24 (1).png"
-                  alt="Download Icon"
-                />
-              </div>
+              <p class="number">20 bpm</p>
+
+              <p class="text">Normal</p>
+            </div>
+
+            <div class="box">
+              <img
+                src="./images/HeartBPM/HeartBPM.png"
+                alt="respiratory image"
+              />
+              <p class="label">Heart Rate</p>
+
+              <p class="number">20 bpm</p>
+
+              <p class="text">Normal</p>
             </div>
           </div>
-        </aside>
+        </div>
+        <div class="dignosticTable">
+          <h3>Diagnostic List</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Problem/Diagnosis</th>
+                <th>Description</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody id="diagnosticListRows"></tbody>
+          </table>
+        </div>
+
+        <div class="patientInfo"></div>
+
+        <div class="labResults">
+          <h3>Lab Results</h3>
+
+          <div class="results">
+            <div class="result">
+              <p>Blood Tests</p>
+              <img
+                src="./images/download_FILL0_wght300_GRAD0_opsz24 (1)/download_FILL0_wght300_GRAD0_opsz24 (1).png"
+                alt="Download Icon"
+              />
+            </div>
+
+            <div class="result">
+              <p>Blood Tests</p>
+              <img
+                src="./images/download_FILL0_wght300_GRAD0_opsz24 (1)/download_FILL0_wght300_GRAD0_opsz24 (1).png"
+                alt="Download Icon"
+              />
+            </div>
+            <div class="result">
+              <p>Blood Tests</p>
+              <img
+                src="./images/download_FILL0_wght300_GRAD0_opsz24 (1)/download_FILL0_wght300_GRAD0_opsz24 (1).png"
+                alt="Download Icon"
+              />
+            </div>
+          </div>
+        </div>
       </section>
     </div>
 
