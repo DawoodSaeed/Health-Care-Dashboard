@@ -210,16 +210,10 @@ const renderDiagnosticList = function (patients, patientName) {
   });
 };
 
-const setCrosspondingDiagnosistics = function (diagnostics) {
-  console.log(diagnostics[0]);
-  const arr = [diagnostics[0]["systolic"], diagnostics[0]["diastolic"]];
+const renderStatsBoxes = function (diagnostics) {
+  const arr = [diagnostics["systolic"], diagnostics["diastolic"]];
 
-  const healthBoxesData = [
-    diagnostics[0]["respiratory_rate"],
-    diagnostics[0]["temperature"],
-    diagnostics[0]["heart_rate"],
-  ];
-  console.log(healthBoxesData);
+  // For the stats box
   const boxes = document.querySelectorAll(".stats .box");
   boxes.forEach((box, index) => {
     const text = box.querySelector(".text");
@@ -228,8 +222,15 @@ const setCrosspondingDiagnosistics = function (diagnostics) {
     text.textContent = arr[index]["levels"];
     number.textContent = arr[index]["value"];
   });
+};
 
+const renderHealthBoxes = function (diagnostics) {
   const healthBoxes = document.querySelectorAll(".healthBoxes .box");
+  const healthBoxesData = [
+    diagnostics["respiratory_rate"],
+    diagnostics["temperature"],
+    diagnostics["heart_rate"],
+  ];
   console.log(healthBoxesData);
   healthBoxes.forEach((box, index) => {
     const text = box.querySelector(".text");
@@ -241,10 +242,12 @@ const setCrosspondingDiagnosistics = function (diagnostics) {
         ? healthBoxesData[index]["value"] + " bpm"
         : healthBoxesData[index]["value"] + " F";
   });
+};
 
+const renderLabReports = function (diagnostics) {
   const labResult = document.querySelector(".labResults .results");
 
-  const reports = diagnostics[0]["lab_results"];
+  const reports = diagnostics["lab_results"];
   console.log("tango", reports);
   let reportHtml = "";
   reports.forEach((itm) => {
@@ -259,6 +262,13 @@ const setCrosspondingDiagnosistics = function (diagnostics) {
   });
 
   labResult.innerHTML = reportHtml;
+};
+
+const setCrosspondingDiagnosistics = function (diagnosticsX) {
+  const diagnostics = diagnosticsX[0];
+  renderStatsBoxes(diagnostics);
+  renderHealthBoxes(diagnostics);
+  renderLabReports(diagnostics);
 };
 
 let myChart = null; // Global variable to hold the chart instance
@@ -398,7 +408,7 @@ window.addEventListener("load", function () {
   });
 });
 
-// ###################### For the filter process ###############
+// ######################  HELPER METHODS ###############
 function filterDataByTimeframe(data, timeframe) {
   const currentDate = new Date();
 
