@@ -1,0 +1,456 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+  height: 15px; /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1b1a1a; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the thumb on hover */
+}
+html {
+  background: #f6f7f8 0% 0% no-repeat padding-box;
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.main-container {
+  padding: 18px;
+}
+
+.navbar {
+  height: 72px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 70px;
+  padding: 0px 32px;
+
+  display: grid;
+  grid-template-columns: 270px 1fr 270px;
+  grid-template-rows: 72px;
+  font: normal normal bold 14px/19px Manrope;
+  letter-spacing: 0px;
+  color: #072635;
+  opacity: 1;
+
+  /* For the left side. */
+  & > .nav-left {
+    display: flex;
+    align-items: center;
+  }
+
+  /* For the main nav content */
+  & > .nav-items {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+    margin: auto;
+  }
+
+  & > .nav-items > li.active {
+    background: #01f0d0 0% 0% no-repeat padding-box;
+    border-radius: 41px;
+    padding: 11px;
+  }
+
+  & > .nav-items a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: inherit;
+  }
+
+  /* For te right side of nav */
+  & > .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  & > .nav-right .doctor-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+
+  & > .nav-right .doctor-info::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    background-color: #ccc;
+    height: 45px;
+    right: -12px;
+    top: 0px;
+  }
+
+  & > .nav-right .doctor-info p:last-child {
+    color: #707070;
+  }
+}
+
+.main-section {
+  height: calc(100% - 18px -72px -32px);
+  padding-top: 32px;
+  display: grid;
+  grid-template-columns: 376px minmax(500px, 1fr) 376px;
+  /* grid-template-rows: 1fr 1fr; */
+  gap: 32px;
+
+  /*  */
+  & > .main-rightBar {
+    grid-template-columns: span 1;
+    grid-row: span 2;
+
+    /* height: 1054px; */
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 16px;
+    padding: 20px;
+    height: max-content;
+  }
+
+  & > .main {
+    grid-template-columns: span 1;
+  }
+
+  & > .main-leftBar {
+    grid-template-columns: span 1;
+
+    .patientInfo,
+    .labResults {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border-radius: 16px;
+      padding: 20px;
+
+      height: max-content;
+    }
+  }
+}
+
+.main-leftBar .labResults {
+  margin-top: 32px;
+  padding: 20px;
+  text-align: left;
+  font: normal normal 800 24px Manrope;
+  letter-spacing: 0px;
+  color: #072635;
+}
+
+.main-leftBar .labResults .result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 27px;
+  p {
+    text-align: left;
+    font: normal normal normal 13px/18px Manrope;
+    letter-spacing: 0px;
+    color: #072635;
+    text-transform: capitalize;
+  }
+}
+
+.main-rightBar .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font: normal normal 800 24px/33px Manrope;
+    letter-spacing: 0px;
+    color: #072635;
+  }
+}
+
+.main-rightBar .cards {
+  max-height: 500px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scrollbar-color: #000;
+  /* padding-top: 40px; */
+}
+.main-rightBar .card {
+  padding: 10px 10px 10px 0px;
+  display: flex;
+  align-items: center;
+
+  .card-details {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+    }
+
+    .card-info p:first-of-type {
+      font: normal normal bold 14px/19px Manrope;
+      letter-spacing: 0px;
+      color: #072635;
+    }
+
+    .card-info p:last-of-type {
+      font: normal normal normal 14px/19px Manrope;
+      letter-spacing: 0px;
+      color: #707070;
+    }
+  }
+}
+
+.main-rightBar .card.active {
+  cursor: pointer;
+  background: #d8fcf7 0% 0% no-repeat padding-box;
+}
+.main-leftBar .patient-image img {
+  width: 150px;
+  height: 150px;
+}
+.main-leftBar .patient-image,
+.main-leftBar .patient-name {
+  text-align: center;
+}
+
+.main-leftBar .patient-name {
+  font: normal normal 800 24px/33px Manrope;
+  letter-spacing: 0px;
+  color: #072635;
+  margin-top: 24px;
+}
+
+.main-leftBar .pateint-iconInfo {
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.main-leftBar .pateint-iconInfo p:first-of-type {
+  font: normal normal medium 14px/19px Manrope;
+  letter-spacing: 0px;
+  color: #072635;
+  text-transform: capitalize;
+}
+
+.main-leftBar .pateint-iconInfo p:last-of-type {
+  font: normal normal bold 14px/19px Manrope;
+  letter-spacing: 0px;
+  color: #072635;
+  text-transform: capitalize;
+}
+
+.main-leftBar .patient-infoBtn {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  button {
+    font: normal normal bold 14px/19px Manrope;
+    letter-spacing: 0px;
+    color: #072635;
+    width: 220px;
+    height: 41px;
+    background: #01f0d0 0% 0% no-repeat padding-box;
+    border-radius: 41px;
+  }
+}
+
+.main .dignosticTable {
+  margin-top: 32px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  padding: 23px;
+  h3 {
+    font: normal normal 800 24px/33px Manrope;
+    letter-spacing: 0px;
+    color: #072635;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  td:not(:nth-child(2)),
+  th:not(:nth-child(2)) {
+    width: 100px;
+    text-align: left;
+  }
+  tr {
+    height: 59px;
+  }
+
+  td,
+  th {
+    text-align: left;
+    padding-left: 10px;
+  }
+
+  thead {
+    background-color: #f6f7f8 !important;
+    border-radius: 24px;
+  }
+}
+
+.main .dignosticHistory {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  padding: 23px;
+
+  h3 {
+    font: normal normal 800 24px/33px Manrope;
+    letter-spacing: 0px;
+    color: #072635;
+  }
+
+  .chartRender {
+    padding: 16px;
+    margin-top: 32px;
+    background: #f4f0fe 0% 0% no-repeat padding-box;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .chart {
+    canvas {
+      width: 100% !important;
+    }
+  }
+
+  .chart div.titleBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  div.titleBar p.title {
+    font: normal normal bold 18px/24px Manrope;
+    letter-spacing: 0px;
+    color: #072635;
+    text-transform: capitalize;
+  }
+
+  .titleBar select {
+    border: none;
+    background: none;
+    border: 1px solid #ccc;
+    margin-right: 28px;
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  .stats {
+    .box:not(:last-of-type) {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 15px;
+    }
+    .box:not(:first-of-type) {
+      margin-top: 15px;
+    }
+    .label {
+      position: relative;
+      font: normal normal bold 14px/19px Manrope;
+      letter-spacing: 0px;
+      color: #072635;
+      text-transform: capitalize;
+      left: 20px;
+    }
+    .label::before {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 100%;
+      background: #e66fd2 0% 0% no-repeat padding-box;
+      border: 1px solid #ffffff;
+      left: -20px;
+      top: 2px;
+    }
+
+    .label.dis::before {
+      background: #8c6fe6 0% 0% no-repeat padding-box;
+      border: 1px solid #ffffff;
+    }
+
+    .number {
+      font: normal normal bold 22px/30px Manrope;
+      letter-spacing: 0px;
+      color: #072635;
+      text-transform: capitalize;
+      margin: 8px 0px;
+    }
+
+    .text {
+      font: normal normal normal 14px/19px Manrope;
+      letter-spacing: 0px;
+      color: #072635;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+  }
+}
+
+.healthBoxes {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 37px;
+  .box {
+    padding: 16px;
+    height: 242px;
+    /* UI Properties */
+    background: #e0f3fa 0% 0% no-repeat padding-box;
+    border-radius: 12px;
+    cursor: pointer;
+    .label {
+      text-align: left;
+      font: normal normal medium 16px/22px Manrope;
+      letter-spacing: 0px;
+      color: #072635;
+      text-transform: capitalize;
+      margin-top: 16px;
+    }
+
+    .text {
+      font: normal normal normal 14px/19px Manrope;
+      letter-spacing: 0px;
+      color: #072635;
+    }
+
+    .number {
+      text-align: left;
+      font: normal normal 800 30px/41px Manrope;
+      letter-spacing: 0px;
+      color: #072635;
+      margin: 10px 0px;
+    }
+  }
+
+  .box:nth-child(2) {
+    background: #ffe6e9 0% 0% no-repeat padding-box;
+  }
+
+  .box:nth-child(3) {
+    background: #ffe6f1 0% 0% no-repeat padding-box;
+  }
+}
