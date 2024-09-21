@@ -2,7 +2,60 @@ console.log("Attached Js File");
 
 const DIAGNOSTIC_HISTORY = [];
 let PATIENTS = [];
+let myChart = null; // Global variable to hold the chart instance
 
+/**
+ * Search Functionality goes through the patient list
+ * And find the relevant patient and render it in the side information.
+ */
+const searchFunctionality = function () {
+  const patientSearchIcon = document.querySelector(".patient-searchIcon");
+  const patientSearch = document.querySelector(".patient-search");
+  const patientHeading = document.querySelector(".patient-searchHeading");
+
+  console.log(patientSearchIcon, patientSearch, patientHeading);
+
+  patientSearchIcon.addEventListener("click", function () {
+    patientSearch.classList.toggle("active");
+    if (patientSearch.classList.contains("active")) {
+      patientHeading.style.display = "none";
+      this.src =
+        "https://img.icons8.com/?size=100&id=83149&format=png&color=000000";
+    } else {
+      patientHeading.style.display = "inline-block";
+      this.src = "./images/search-icons/search_FILL0_wght300_GRAD0_opsz24.png";
+    }
+  });
+
+  patientSearch.addEventListener("keyup", function (event) {
+    // Check if the pressed key is "Enter"
+    if (event.key == "Enter") {
+      event.preventDefault();
+      const cards = document.getElementById("asideCardsPatient");
+      let filteredPateints;
+      cards.innerHTML = "";
+      if (this.value.length === 0) {
+        renderAllPateints(PATIENTS);
+        return;
+      }
+      filteredPateints = PATIENTS.filter((patient) => {
+        return patient.name.includes(this.value);
+      });
+
+      if (filteredPateints.length < 1) {
+        return;
+      }
+      console.log(filteredPateints);
+      const { name, age, gender, profile_picture } = filteredPateints[0];
+      renderCardsList(name, age, gender, profile_picture);
+    }
+  });
+};
+
+/**
+ * Fetch all the patients record and returns back a promise .
+ * @function
+ */
 function getPatientData() {
   const url = "https://fedskillstest.coalitiontechnologies.workers.dev";
   const username = "coalition";
@@ -34,6 +87,11 @@ function getPatientData() {
   });
 }
 
+/**
+ * Returns an patient object accoridng to the name provided
+ * if no object with given name is found it rerturns boolean false
+ * @function
+ */
 const getPatient = function (patients, patientName) {
   const filteredPatients = patients.filter(
     (patient) => patient["name"] == patientName
@@ -48,6 +106,10 @@ const getPatient = function (patients, patientName) {
   return patientToRender;
 };
 
+/**
+ * Renders the list of .card inside the .cards div
+ * @function
+ */
 const renderCardsList = function (name, age, gender, profile_picture) {
   const cards = document.getElementById("asideCardsPatient");
   const card = document.createElement("div");
@@ -93,12 +155,24 @@ const renderCardsList = function (name, age, gender, profile_picture) {
   cards.appendChild(card);
 };
 
+/**
+ * Iterate throught the list of patients.
+ * calls the renderCardsList Methid each time.
+ * @function
+ */
 const renderAllPateints = function (patients) {
   patients.forEach(({ name, age, gender, profile_picture }) => {
     renderCardsList(name, age, gender, profile_picture);
   });
 };
 
+// These methods will be called for an individual pateint #####.
+
+/**
+ * Render the generic info of the individual patient ...
+ * @param {*} patients
+ * @param {*} patientName
+ */
 const renderPatientInfo = function (patients, patientName) {
   const patientToRender = getPatient(patients, patientName);
 
@@ -182,6 +256,12 @@ const renderPatientInfo = function (patients, patientName) {
   document.querySelector(" .patientInfo").innerHTML = htmlToDOM;
 };
 
+/**
+ * Renders the Dignostic List of the specific Patient...
+ * @param {*} patients
+ * @param {*} patientName
+ * @returns
+ */
 const renderDiagnosticList = function (patients, patientName) {
   const patientToRender = getPatient(patients, patientName);
 
@@ -215,6 +295,10 @@ const renderDiagnosticList = function (patients, patientName) {
   });
 };
 
+/**
+ * Render the systolic and distolic information of the patient.
+ * @param {*} diagnostics diagnostic information of the patient
+ */
 const renderStatsBoxes = function (diagnostics) {
   const arr = [diagnostics["systolic"], diagnostics["diastolic"]];
 
@@ -229,6 +313,10 @@ const renderStatsBoxes = function (diagnostics) {
   });
 };
 
+/**
+ * Renders the Respiratory, Heart , temperature of the patient.
+ * @param {*} diagnostics diagnostic information of the patient
+ */
 const renderHealthBoxes = function (diagnostics) {
   const healthBoxes = document.querySelectorAll(".healthBoxes .box");
   const healthBoxesData = [
@@ -249,6 +337,10 @@ const renderHealthBoxes = function (diagnostics) {
   });
 };
 
+/**
+ * Render the Lab report  of the patient.
+ * @param {*} diagnostics diagnostic information of the patient
+ */
 const renderLabReports = function (diagnostics) {
   const labResult = document.querySelector(".labResults .results");
 
@@ -269,6 +361,13 @@ const renderLabReports = function (diagnostics) {
   labResult.innerHTML = reportHtml;
 };
 
+/**
+ * Render the patient information such as systolic, distolic infromation
+ * Respiratory information, Health rate, Temperature.
+ * Renders the Lab Report of the patient.
+ * This method just calls the relevant functions.
+ * @param {*} diagnosticsX
+ */
 const setCrosspondingDiagnosistics = function (diagnosticsX) {
   const diagnostics = diagnosticsX[0];
   renderStatsBoxes(diagnostics);
@@ -276,8 +375,13 @@ const setCrosspondingDiagnosistics = function (diagnosticsX) {
   renderLabReports(diagnostics);
 };
 
-let myChart = null; // Global variable to hold the chart instance
-
+/**
+ * This function utlizes the chartjs to render the chart
+ * The chart is plot against date and systoic and distolic information of the patient.
+ * @param {*} labels Labels for the chart.
+ * @param {*} systolic Systolic information of the patient.
+ * @param {*} diastolic Distolic information of the patient.
+ */
 const renderChart = function (labels, systolic, diastolic) {
   const ctx = document.getElementById("myChart").getContext("2d");
 
@@ -351,6 +455,14 @@ const renderChart = function (labels, systolic, diastolic) {
     });
   }
 };
+
+/**
+ * Find the patient object and manipulate it to extract the information need to plot the chart
+ * calls the renderChart function with the extracted information.
+ * @param {*} patients
+ * @param {*} patientName
+ * @returns
+ */
 const renderChartData = function (patients, patientName) {
   const patientToRender = getPatient(patients, patientName);
 
@@ -399,21 +511,6 @@ const renderChartData = function (patients, patientName) {
   setCrosspondingDiagnosistics(array);
 };
 
-window.addEventListener("load", function () {
-  const response = getPatientData();
-
-  response.then((data) => {
-    PATIENTS = data;
-    renderAllPateints(data);
-    renderPatientInfo(data, "Jessica Taylor");
-    renderDiagnosticList(data, "Jessica Taylor");
-    renderChartData(data, "Jessica Taylor");
-
-    console.log(DIAGNOSTIC_HISTORY);
-  });
-});
-
-// ######################  HELPER METHODS ###############
 function filterDataByTimeframe(data, timeframe) {
   const currentDate = new Date();
 
@@ -463,6 +560,14 @@ function getMonthIndex(month) {
   return monthMap[month];
 }
 
+/**
+ * For the mobile menu and sidebar toggling functionality
+ */
+function mobonav() {
+  const moboNav = document.querySelector(".mobo-nav");
+  moboNav.classList.toggle("active");
+}
+
 document
   .getElementById("filterChart")
   .addEventListener("change", function (event) {
@@ -501,80 +606,23 @@ document
     renderChart(labels, systolic, diastolic);
   });
 
-function getFullMonthName(monthAbbreviation) {
-  switch (monthAbbreviation) {
-    case "Jan":
-      return "January";
-    case "Feb":
-      return "February";
-    case "Mar":
-      return "March";
-    case "Apr":
-      return "April";
-    case "May":
-      return "May";
-    case "Jun":
-      return "June";
-    case "Jul":
-      return "July";
-    case "Aug":
-      return "August";
-    case "Sep":
-      return "September";
-    case "Oct":
-      return "October";
-    case "Nov":
-      return "November";
-    case "Dec":
-      return "December";
-    default:
-      return "Invalid month";
-  }
-}
+window.addEventListener("load", function () {
+  const response = getPatientData();
 
-function mobonav() {
-  const moboNav = document.querySelector(".mobo-nav");
-  moboNav.classList.toggle("active");
-}
+  response.then((data) => {
+    PATIENTS = data;
+    // Get the patient name;
+    patientName = data[3].name;
+    // Render all the patients in the side bar.
+    renderAllPateints(data);
+    // Render Generic Information of the patient.
+    renderPatientInfo(data, patientName);
+    // Render Diagnostic List of the patient.
+    renderDiagnosticList(data, patientName);
+    // Render the chart of systolic & Distolic Information of patient
+    // Against Data
+    renderChartData(data, patientName);
 
-const patientSearchIcon = document.querySelector(".patient-searchIcon");
-const patientSearch = document.querySelector(".patient-search");
-const patientHeading = document.querySelector(".patient-searchHeading");
-
-console.log(patientSearchIcon, patientSearch, patientHeading);
-
-patientSearchIcon.addEventListener("click", function () {
-  patientSearch.classList.toggle("active");
-  if (patientSearch.classList.contains("active")) {
-    patientHeading.style.display = "none";
-    this.src =
-      "https://img.icons8.com/?size=100&id=83149&format=png&color=000000";
-  } else {
-    patientHeading.style.display = "inline-block";
-    this.src = "./images/search-icons/search_FILL0_wght300_GRAD0_opsz24.png";
-  }
-});
-
-patientSearch.addEventListener("keyup", function (event) {
-  // Check if the pressed key is "Enter"
-  if (event.key == "Enter") {
-    event.preventDefault();
-    const cards = document.getElementById("asideCardsPatient");
-    let filteredPateints;
-    cards.innerHTML = "";
-    if (this.value.length === 0) {
-      renderAllPateints(PATIENTS);
-      return;
-    }
-    filteredPateints = PATIENTS.filter((patient) => {
-      return patient.name.includes(this.value);
-    });
-
-    if (filteredPateints.length < 1) {
-      return;
-    }
-    console.log(filteredPateints);
-    const { name, age, gender, profile_picture } = filteredPateints[0];
-    renderCardsList(name, age, gender, profile_picture);
-  }
+    searchFunctionality();
+  });
 });

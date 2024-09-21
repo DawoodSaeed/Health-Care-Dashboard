@@ -57,15 +57,26 @@ html {
   & > .nav-items {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
     list-style: none;
     margin: auto;
   }
 
-  & > .nav-items > li.active {
-    background: #01f0d0 0% 0% no-repeat padding-box;
-    border-radius: 41px;
+  & > .nav-items > li {
+    transition: all 0.4s ease;
     padding: 11px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &.active {
+      background: #01f0d0 0% 0% no-repeat padding-box;
+      border-radius: 41px;
+    }
+
+    &:hover {
+      background: #01f0d086 0% 0% no-repeat padding-box;
+      border-radius: 41px;
+      border-color: #000;
+    }
   }
 
   & > .nav-items a {
@@ -224,7 +235,7 @@ html {
 .main-rightBar .card.active {
   cursor: pointer;
   background: #8ffced 0% 0% no-repeat padding-box;
-  border: 1px solid #ccc;
+  border: 1px solid #000;
 }
 
 .main-rightBar .card:hover {
