@@ -1,6 +1,7 @@
 console.log("Attached Js File");
 
 const DIAGNOSTIC_HISTORY = [];
+let PATIENTS = [];
 
 function getPatientData() {
   const url = "https://fedskillstest.coalitiontechnologies.workers.dev";
@@ -47,50 +48,54 @@ const getPatient = function (patients, patientName) {
   return patientToRender;
 };
 
-const renderAllPateints = function (patients) {
+const renderCardsList = function (name, age, gender, profile_picture) {
   const cards = document.getElementById("asideCardsPatient");
-  patients.forEach(({ name, age, gender, profile_picture }) => {
-    const card = document.createElement("div");
-    card.classList.add("card");
+  const card = document.createElement("div");
+  card.classList.add("card");
 
-    if (name == "Jessica Taylor") {
-      card.classList.add("active");
-    }
-    const cardDetails = document.createElement("div");
-    cardDetails.classList.add("card-details");
+  if (name == "Jessica Taylor") {
+    card.classList.add("active");
+  }
+  const cardDetails = document.createElement("div");
+  cardDetails.classList.add("card-details");
 
-    const img = document.createElement("img");
-    img.src = profile_picture;
-    img.alt = name + "image";
+  const img = document.createElement("img");
+  img.src = profile_picture;
+  img.alt = name + "image";
 
-    const cardInfo = document.createElement("div");
-    cardInfo.classList.add("card-info");
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("card-info");
 
-    const p1 = document.createElement("p");
-    p1.textContent = name;
+  const p1 = document.createElement("p");
+  p1.textContent = name;
 
-    const p2 = document.createElement("p");
-    p2.textContent = gender + ", " + age;
+  const p2 = document.createElement("p");
+  p2.textContent = gender + ", " + age;
 
-    cardInfo.appendChild(p1);
-    cardInfo.appendChild(p2);
+  cardInfo.appendChild(p1);
+  cardInfo.appendChild(p2);
 
-    cardDetails.appendChild(img);
-    cardDetails.appendChild(cardInfo);
+  cardDetails.appendChild(img);
+  cardDetails.appendChild(cardInfo);
 
-    const cardIcon = document.createElement("div");
-    cardIcon.classList.add("card-icon");
+  const cardIcon = document.createElement("div");
+  cardIcon.classList.add("card-icon");
 
-    cardIcon.innerHTML = ` <img
+  cardIcon.innerHTML = ` <img
                   src="./images/horizontal-icons/more_horiz_FILL0_wght300_GRAD0_opsz24.png"
                   alt="Horizontal Icon"
                 />`;
 
-    //
-    card.appendChild(cardDetails);
-    card.appendChild(cardIcon);
+  //
+  card.appendChild(cardDetails);
+  card.appendChild(cardIcon);
 
-    cards.appendChild(card);
+  cards.appendChild(card);
+};
+
+const renderAllPateints = function (patients) {
+  patients.forEach(({ name, age, gender, profile_picture }) => {
+    renderCardsList(name, age, gender, profile_picture);
   });
 };
 
@@ -398,8 +403,8 @@ window.addEventListener("load", function () {
   const response = getPatientData();
 
   response.then((data) => {
+    PATIENTS = data;
     renderAllPateints(data);
-
     renderPatientInfo(data, "Jessica Taylor");
     renderDiagnosticList(data, "Jessica Taylor");
     renderChartData(data, "Jessica Taylor");
@@ -547,5 +552,29 @@ patientSearchIcon.addEventListener("click", function () {
   } else {
     patientHeading.style.display = "inline-block";
     this.src = "./images/search-icons/search_FILL0_wght300_GRAD0_opsz24.png";
+  }
+});
+
+patientSearch.addEventListener("keyup", function (event) {
+  // Check if the pressed key is "Enter"
+  if (event.key == "Enter") {
+    event.preventDefault();
+    const cards = document.getElementById("asideCardsPatient");
+    let filteredPateints;
+    cards.innerHTML = "";
+    if (this.value.length === 0) {
+      renderAllPateints(PATIENTS);
+      return;
+    }
+    filteredPateints = PATIENTS.filter((patient) => {
+      return patient.name.includes(this.value);
+    });
+
+    if (filteredPateints.length < 1) {
+      return;
+    }
+    console.log(filteredPateints);
+    const { name, age, gender, profile_picture } = filteredPateints[0];
+    renderCardsList(name, age, gender, profile_picture);
   }
 });
