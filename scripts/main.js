@@ -1,5 +1,3 @@
-console.log("Attached Js File");
-
 const DIAGNOSTIC_HISTORY = [];
 let PATIENTS = [];
 let myChart = null; // Global variable to hold the chart instance
@@ -511,6 +509,21 @@ const renderChartData = function (patients, patientName) {
   setCrosspondingDiagnosistics(array);
 };
 
+/**
+ * For the mobile menu and sidebar toggling functionality
+ */
+function mobonav() {
+  const moboNav = document.querySelector(".mobo-nav");
+  moboNav.classList.toggle("active");
+}
+
+/**
+ * Provided the patient array and the timeframe it filters the
+ * patient list
+ * @param {*} data
+ * @param {*} timeframe
+ * @returns
+ */
 function filterDataByTimeframe(data, timeframe) {
   const currentDate = new Date();
 
@@ -541,6 +554,11 @@ function filterDataByTimeframe(data, timeframe) {
   return filteredData;
 }
 
+/**
+ * Given name of the month it returns back the index.
+ * @param {*} month
+ * @returns  index number which is numeric value of the month.
+ */
 function getMonthIndex(month) {
   const monthMap = {
     January: 0,
@@ -561,13 +579,9 @@ function getMonthIndex(month) {
 }
 
 /**
- * For the mobile menu and sidebar toggling functionality
+ * Listens for the change event on the select input field
+ * And filters and renders / update the chart js chart accordingly
  */
-function mobonav() {
-  const moboNav = document.querySelector(".mobo-nav");
-  moboNav.classList.toggle("active");
-}
-
 document
   .getElementById("filterChart")
   .addEventListener("change", function (event) {
@@ -606,6 +620,11 @@ document
     renderChart(labels, systolic, diastolic);
   });
 
+/**
+ * Listen for the onload event when the windows loads
+ * it calls the relevant methods to show the patient information
+ * By default, Jessica Taylor information is show to the user.
+ */
 window.addEventListener("load", function () {
   const response = getPatientData();
 
