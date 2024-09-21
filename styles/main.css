@@ -114,13 +114,13 @@ html {
 
   /*  */
   & > .main-rightBar {
-    grid-template-columns: span 1;
+    /* grid-template-columns: span 1; */
     grid-row: span 2;
 
     /* height: 1054px; */
     background: #ffffff 0% 0% no-repeat padding-box;
     border-radius: 16px;
-    padding: 20px;
+    /* padding: 20px; */
     height: calc(100vh - 138px);
     overflow: hidden;
   }
@@ -172,7 +172,7 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  margin: 10px 15px;
   h3 {
     font: normal normal 800 24px/33px Manrope;
     letter-spacing: 0px;
@@ -188,16 +188,19 @@ html {
   /* padding-top: 40px; */
 }
 .main-rightBar .card {
-  padding: 10px 10px 10px 0px;
   display: flex;
   align-items: center;
-
+  transition: all 0.2s ease-in;
+  padding: 10px 10px;
+  border-radius: 8px;
+  /* margin-right: 10px; */
+  margin: 0px 5px;
   .card-details {
     flex: 1;
     display: flex;
     align-items: center;
     gap: 12px;
-
+    cursor: pointer;
     img {
       width: 48px;
       height: 48px;
@@ -220,7 +223,13 @@ html {
 
 .main-rightBar .card.active {
   cursor: pointer;
-  background: #d8fcf7 0% 0% no-repeat padding-box;
+  background: #8ffced 0% 0% no-repeat padding-box;
+  border: 1px solid #ccc;
+}
+
+.main-rightBar .card:hover {
+  cursor: pointer;
+  background: #a7fdf2 0% 0% no-repeat padding-box;
 }
 .patient-image img {
   width: 150px;
@@ -681,4 +690,32 @@ html {
   .main-section .dignosticHistory .chartRender {
     width: 310px;
   }
+}
+
+.patient-search {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: inherit;
+  flex: 1;
+  display: none;
+  transition: all 0.4s ease-in;
+  &.active {
+    display: inline-block;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #acacac;
+  }
+}
+
+.patient-searchIcon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+  border-radius: 4px;
+  text-align: center;
 }

@@ -531,3 +531,21 @@ function mobonav() {
   const moboNav = document.querySelector(".mobo-nav");
   moboNav.classList.toggle("active");
 }
+
+const patientSearchIcon = document.querySelector(".patient-searchIcon");
+const patientSearch = document.querySelector(".patient-search");
+const patientHeading = document.querySelector(".patient-searchHeading");
+
+console.log(patientSearchIcon, patientSearch, patientHeading);
+
+patientSearchIcon.addEventListener("click", function () {
+  patientSearch.classList.toggle("active");
+  if (patientSearch.classList.contains("active")) {
+    patientHeading.style.display = "none";
+    this.src =
+      "https://img.icons8.com/?size=100&id=83149&format=png&color=000000";
+  } else {
+    patientHeading.style.display = "inline-block";
+    this.src = "./images/search-icons/search_FILL0_wght300_GRAD0_opsz24.png";
+  }
+});
