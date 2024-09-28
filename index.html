@@ -136,10 +136,10 @@
               <div class="titleBar">
                 <p class="title">Blood Pressure</p>
                 <select id="filterChart">
-                  <option value="last1year">Last 1 year</option>
-                  <option value="last2year">Last 2 year</option>
-                  <option value="last3year">Last 3 year</option>
-                  <option value="last8months">8 months</option>
+                  <option value="1 year">Last 1 year</option>
+                  <option value="2 years">Last 2 year</option>
+                  <option value="3 years">Last 3 year</option>
+                  <option value="8 months">8 months</option>
                 </select>
               </div>
               <canvas id="myChart" width="400" height="200"></canvas>
@@ -170,43 +170,7 @@
             </div>
           </div>
 
-          <div class="healthBoxes">
-            <div class="box">
-              <img
-                src="./images/respiratory rate.png"
-                alt="respiratory image"
-              />
-              <p class="label">Respiratory Rate</p>
-
-              <p class="number">20 bpm</p>
-
-              <p class="text">Normal</p>
-            </div>
-
-            <div class="box">
-              <img
-                src="./images/temperature/temperature.png"
-                alt="respiratory image"
-              />
-              <p class="label">Temperature</p>
-
-              <p class="number">20 bpm</p>
-
-              <p class="text">Normal</p>
-            </div>
-
-            <div class="box">
-              <img
-                src="./images/HeartBPM/HeartBPM.png"
-                alt="respiratory image"
-              />
-              <p class="label">Heart Rate</p>
-
-              <p class="number">20 bpm</p>
-
-              <p class="text">Normal</p>
-            </div>
-          </div>
+          <div class="healthBoxes"></div>
         </div>
         <div class="dignosticTable">
           <h3>Diagnostic List</h3>
@@ -257,6 +221,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="scripts/main.js" type="module"></script>
   </body>
 </html>

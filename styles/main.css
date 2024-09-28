@@ -730,3 +730,7 @@ html {
   border-radius: 4px;
   text-align: center;
 }
+
+.no-results-message {
+  padding-left: 20px;
+}
